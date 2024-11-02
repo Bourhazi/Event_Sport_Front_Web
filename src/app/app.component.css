@@ -1,0 +1,22 @@
+
+.vh-100 {
+  min-height: 100vh;
+}
+
+.display-4 {
+  font-size: 2.5rem;
+}
+
+.text-success {
+  color: #00796b !important;
+}
+
+.btn-success {
+  background-color: #00796b;
+  border-color: #00796b;
+}
+
+.btn-success:hover {
+  background-color: #005a4d;
+  border-color: #005a4d;
+}

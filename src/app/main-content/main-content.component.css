@@ -1,0 +1,22 @@
+.main-content {
+  text-align: center;
+  padding: 50px;
+}
+
+h1 {
+  font-size: 3rem;
+}
+
+h1 span {
+  font-weight: bold;
+  color: #00796b;
+}
+
+button {
+  background-color: #00796b;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}

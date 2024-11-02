@@ -1,0 +1,56 @@
+nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 1rem 2rem;
+  background-color: white;
+}
+
+.logo {
+  width: 40px;
+}
+
+.nav-links {
+  display: flex;
+  list-style: none;
+  gap: 1.5rem;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: #333;
+  font-weight: 500;
+}
+
+.auth-buttons button {
+  background: none;
+  border: 1px solid #00796b;
+  padding: 0.5rem 1.25rem;
+  margin-left: 0.5rem;
+  border-radius: 20px;
+  font-size: 0.875rem;
+  color: #00796b;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.auth-buttons button:first-child {
+  background-color: transparent;
+}
+
+.auth-buttons button:last-child {
+  background-color: #00796b;
+  color: white;
+}
+
+.auth-buttons button:hover {
+  background-color: #005a4d;
+  color: white;
+}
+.navbar-brand img {
+  height: 50px;
+  /* Adjust the height of the logo */
+  width: auto;
+  object-fit: contain;
+}
