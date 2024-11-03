@@ -3,10 +3,11 @@ import { RouterModule, Routes } from '@angular/router';
 import { CreateTypeSportComponent } from './create-type-sport/create-type-sport.component';
 import { MainContentComponent } from './main-content/main-content.component';
 
-export const routes: Routes = [
-  { path: 'create-type-sport', component: CreateTypeSportComponent },
+const routes: Routes = [
+  { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: 'home', component: MainContentComponent },
-  { path: '', redirectTo: '/home', pathMatch: 'full' }
+  { path: 'create-type-sport', component: CreateTypeSportComponent },
+  { path: '**', redirectTo: 'home' }
 ];
 
 @NgModule({
