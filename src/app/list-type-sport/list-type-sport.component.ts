@@ -58,16 +58,18 @@ export class ListTypeSportComponent implements OnInit {
     );
   }
 
-  checkStoredMessage(): void {
+ checkStoredMessage(): void {
+  if (typeof window !== 'undefined' && sessionStorage) {
     this.message = sessionStorage.getItem('message');
     const success = sessionStorage.getItem('success');
     if (this.message) {
       this.isSuccess = success === 'true';
-      // Clear the message after displaying it once
       sessionStorage.removeItem('message');
       sessionStorage.removeItem('success');
     }
   }
+}
+
   // Filter sports based on search term, number of teams, and participants
   filterSports() {
     const filtered = this.sports.filter((sport) => {
