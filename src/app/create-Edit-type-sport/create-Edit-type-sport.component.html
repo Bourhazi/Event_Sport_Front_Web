@@ -1,0 +1,58 @@
+<div class="row justify-content-center align-items-center vh-100">
+  <!-- Colonne de gauche : Formulaire -->
+  <div class="col-lg-6 text-center text-lg-start">
+    <div class="card p-4 shadow-lg">
+      <h2 class="text-center mb-4" *ngIf="isEditMode">Modifier un Type de Sport</h2>
+      <h2 class="text-center mb-4" *ngIf="!isEditMode">Ajouter un Type de Sport</h2>
+      <form (ngSubmit)="onSubmit()" #typeSportForm="ngForm">
+
+        <!-- Nom du sport -->
+        <div class="mb-3">
+          <label for="nom" class="form-label">Nom du Sport</label>
+          <input type="text" id="nom" class="form-control" [(ngModel)]="typeDeSport.nom" name="nom" required
+            minlength="2" pattern="[a-zA-ZÀ-ÿ\s]+" #nom="ngModel" />
+          <div *ngIf="nom.invalid && (nom.dirty || nom.touched)" class="text-danger">
+            <small *ngIf="nom.errors?.required">Le nom est requis.</small>
+            <small *ngIf="nom.errors?.minlength">Le nom doit comporter au moins 2 caractères.</small>
+            <small *ngIf="nom.errors?.pattern">Le nom ne doit contenir que des lettres.</small>
+          </div>
+        </div>
+
+        <!-- Nombre d'équipes maximum -->
+        <div class="mb-3">
+          <label for="nombreEquipesMax" class="form-label">Nombre d'équipes maximum</label>
+          <input type="number" id="nombreEquipesMax" class="form-control" [(ngModel)]="typeDeSport.nombreEquipesMax"
+            name="nombreEquipesMax" required min="1" #nombreEquipesMax="ngModel" />
+          <div *ngIf="nombreEquipesMax.invalid && (nombreEquipesMax.dirty || nombreEquipesMax.touched)"
+            class="text-danger">
+            <small *ngIf="nombreEquipesMax.errors?.required">Le nombre d'équipes maximum est requis.</small>
+            <small *ngIf="nombreEquipesMax.errors?.min">Le nombre d'équipes doit être au moins 1.</small>
+          </div>
+        </div>
+
+        <!-- Nombre de participants par équipe -->
+        <div class="mb-3">
+          <label for="nombreParticipantsParEquipe" class="form-label">Nombre de participants par équipe</label>
+          <input type="number" id="nombreParticipantsParEquipe" class="form-control"
+            [(ngModel)]="typeDeSport.nombreParticipantsParEquipe" name="nombreParticipantsParEquipe" required min="1"
+            #nombreParticipants="ngModel" />
+          <div *ngIf="nombreParticipants.invalid && (nombreParticipants.dirty || nombreParticipants.touched)"
+            class="text-danger">
+            <small *ngIf="nombreParticipants.errors?.required">Le nombre de participants est requis.</small>
+            <small *ngIf="nombreParticipants.errors?.min">Il doit y avoir au moins 1 participant par équipe.</small>
+          </div>
+        </div>
+
+        <!-- Bouton Ajouter / Modifier -->
+        <button type="submit" class="btn btn-primary w-100" [disabled]="!typeSportForm.form.valid">
+          {{ isEditMode ? 'Modifier' : 'Ajouter' }}
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Colonne de droite : Image -->
+  <div class="col-lg-5 d-none d-lg-block">
+    <img src="../../assets/player-image.png" alt="Football player" style="width: 100%; height: auto;" />
+  </div>
+</div>

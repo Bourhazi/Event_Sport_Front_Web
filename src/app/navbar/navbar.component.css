@@ -1,3 +1,4 @@
+/* General styles for the navbar */
 nav {
   display: flex;
   align-items: center;
@@ -23,34 +24,37 @@ nav {
   font-weight: 500;
 }
 
-.auth-buttons button {
+/* Auth buttons styling */
+.auth-buttons a {
   background: none;
-  border: 1px solid #00796b;
   padding: 0.5rem 1.25rem;
   margin-left: 0.5rem;
   border-radius: 20px;
   font-size: 0.875rem;
-  color: #00796b;
+  color: #0569d4;
+  border: 1px solid #0569d4;
   cursor: pointer;
   transition: background-color 0.3s, color 0.3s;
 }
 
-.auth-buttons button:first-child {
+.auth-buttons a:first-child {
   background-color: transparent;
+  border-color: #0569d4;
 }
 
-.auth-buttons button:last-child {
-  background-color: #00796b;
+.auth-buttons a:last-child {
+  background-color: #0569d4;
   color: white;
 }
 
-.auth-buttons button:hover {
-  background-color: #005a4d;
+.auth-buttons a:hover {
+  background-color: #0056b3;
   color: white;
 }
+
+/* Logo size adjustments */
 .navbar-brand img {
   height: 50px;
-  /* Adjust the height of the logo */
   width: auto;
   object-fit: contain;
 }

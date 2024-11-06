@@ -1,0 +1,76 @@
+<div class="container mt-5">
+
+  <div *ngIf="message" class="alert" [ngClass]="isSuccess ? 'alert-success' : 'alert-danger'">
+    {{ message }}
+  </div>
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h2 class="mb-0">Liste des Types de Sport</h2>
+    <button class="btn btn-primary btn-lg" [routerLink]="['/create-type-sport']">Ajouter Type de Sport</button>
+  </div>
+
+  <div class="row mb-4">
+    <div class="col-md-6">
+      <input type="text" class="form-control" placeholder="Rechercher par nom de sport" [(ngModel)]="searchTerm"
+        (input)="filterSports()" />
+    </div>
+    <div class="col-md-6 d-flex justify-content-end align-items-center">
+      <select class="form-select me-3" [(ngModel)]="filterCriteria" (change)="filterSports()">
+        <option value="">Filtrer par nombre d'équipes max</option>
+        <option value="10">Moins de 10</option>
+        <option value="20">Moins de 20</option>
+        <option value="30">Moins de 30</option>
+      </select>
+      <select class="form-select" [(ngModel)]="filterParticipants" (change)="filterSports()">
+        <option value="">Filtrer par participants</option>
+        <option value="5">Moins de 5</option>
+        <option value="10">Moins de 10</option>
+        <option value="15">Moins de 15</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="table-responsive">
+    <table class="table table-hover align-middle">
+      <thead class="table-light">
+        <tr>
+          <th>#</th>
+          <th>Nom du Sport</th>
+          <th>Nombre d'équipes maximum</th>
+          <th>Nombre de participants par équipe</th>
+          <th class="text-center">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let sport of paginatedSports; let i = index">
+          <td>{{ (currentPage - 1) * itemsPerPage + i + 1 }}</td>
+          <td>{{ sport.nom }}</td>
+          <td>{{ sport.nombreEquipesMax }}</td>
+          <td>{{ sport.nombreParticipantsParEquipe }}</td>
+          <td class="text-center">
+            <div class="btn-group">
+              <button class="btn btn-sm btn-outline-primary me-1" [routerLink]="['/create-type-sport', sport.id]" title="Editer">✏️</button>
+              <button class="btn btn-sm btn-outline-danger me-1" title="Supprimer">🗑️</button>
+              <button class="btn btn-sm btn-outline-primary" title="Voir">👁️</button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="d-flex justify-content-between mt-3">
+    <div class="text-muted">Rows per page: {{ itemsPerPage }}</div>
+    {{ (currentPage - 1) * itemsPerPage + 1 }}–{{ (currentPage * itemsPerPage) < totalItems ? (currentPage * itemsPerPage) :
+      totalItems }} of {{ totalItems }}
+    <nav aria-label="Table Pagination">
+      <ul class="pagination">
+        <li class="page-item" [class.disabled]="currentPage === 1">
+          <button class="page-link" (click)="previousPage()">Previous</button>
+        </li>
+        <li class="page-item" [class.disabled]="currentPage === totalPages">
+          <button class="page-link" (click)="nextPage()">Next</button>
+        </li>
+      </ul>
+    </nav>
+  </div>
+</div>

@@ -3,20 +3,32 @@
   padding: 50px;
 }
 
+/* Main title */
 h1 {
   font-size: 3rem;
 }
 
+/* Change the color of the bold text inside the h1 to blue */
 h1 span {
   font-weight: bold;
-  color: #00796b;
+  color: #0356ae;
+  /* Changed to blue */
 }
 
+/* Button styling */
 button {
-  background-color: #00796b;
+  background-color: #045bb9;
+  /* Blue color */
   color: white;
   padding: 10px 20px;
   border: none;
   border-radius: 5px;
   cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+button:hover {
+  background-color: #0356ae;
+  /* Darker blue on hover */
+  color: white;
 }
