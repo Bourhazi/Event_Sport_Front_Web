@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http'; // Add this import
-import { TypeDeSportService, TypeDeSport } from '../services/type-de-sport.service';
+import { TypeDeSportService, TypeDeSport } from '../../services/TypeSportService/type-de-sport.service';
 
 @Component({
   selector: 'app-list-type-sport',

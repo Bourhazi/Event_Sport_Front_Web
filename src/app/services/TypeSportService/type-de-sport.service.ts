@@ -1,12 +1,14 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { Regle } from '../RegleService/regle.service';
 
 export interface TypeDeSport {
   id: number;
   nom: string;
   nombreEquipesMax: number;
   nombreParticipantsParEquipe: number;
+  regles: Regle[];
 }
 
 @Injectable({
@@ -14,7 +16,7 @@ export interface TypeDeSport {
 })
 export class TypeDeSportService {
 
-  private apiUrl = 'http://localhost:8080/typesport';
+  private apiUrl = 'http://localhost:8090/typesport';
 
   constructor(private http: HttpClient) { }
 

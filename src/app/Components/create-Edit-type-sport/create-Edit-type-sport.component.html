@@ -12,9 +12,9 @@
           <input type="text" id="nom" class="form-control" [(ngModel)]="typeDeSport.nom" name="nom" required
             minlength="2" pattern="[a-zA-ZÀ-ÿ\s]+" #nom="ngModel" />
           <div *ngIf="nom.invalid && (nom.dirty || nom.touched)" class="text-danger">
-            <small *ngIf="nom.errors?.required">Le nom est requis.</small>
-            <small *ngIf="nom.errors?.minlength">Le nom doit comporter au moins 2 caractères.</small>
-            <small *ngIf="nom.errors?.pattern">Le nom ne doit contenir que des lettres.</small>
+            <small *ngIf="nom.errors?.['required']">Le nom est requis.</small>
+            <small *ngIf="nom.errors?.['minlength']">Le nom doit comporter au moins 2 caractères.</small>
+            <small *ngIf="nom.errors?.['pattern']">Le nom ne doit contenir que des lettres.</small>
           </div>
         </div>
 
@@ -23,10 +23,9 @@
           <label for="nombreEquipesMax" class="form-label">Nombre d'équipes maximum</label>
           <input type="number" id="nombreEquipesMax" class="form-control" [(ngModel)]="typeDeSport.nombreEquipesMax"
             name="nombreEquipesMax" required min="1" #nombreEquipesMax="ngModel" />
-          <div *ngIf="nombreEquipesMax.invalid && (nombreEquipesMax.dirty || nombreEquipesMax.touched)"
-            class="text-danger">
-            <small *ngIf="nombreEquipesMax.errors?.required">Le nombre d'équipes maximum est requis.</small>
-            <small *ngIf="nombreEquipesMax.errors?.min">Le nombre d'équipes doit être au moins 1.</small>
+          <div *ngIf="nombreEquipesMax.invalid && (nombreEquipesMax.dirty || nombreEquipesMax.touched)" class="text-danger">
+            <small *ngIf="nombreEquipesMax.errors?.['required']">Le nombre d'équipes maximum est requis.</small>
+            <small *ngIf="nombreEquipesMax.errors?.['min']">Le nombre d'équipes doit être au moins 1.</small>
           </div>
         </div>
 
@@ -36,12 +35,34 @@
           <input type="number" id="nombreParticipantsParEquipe" class="form-control"
             [(ngModel)]="typeDeSport.nombreParticipantsParEquipe" name="nombreParticipantsParEquipe" required min="1"
             #nombreParticipants="ngModel" />
-          <div *ngIf="nombreParticipants.invalid && (nombreParticipants.dirty || nombreParticipants.touched)"
-            class="text-danger">
-            <small *ngIf="nombreParticipants.errors?.required">Le nombre de participants est requis.</small>
-            <small *ngIf="nombreParticipants.errors?.min">Il doit y avoir au moins 1 participant par équipe.</small>
+          <div *ngIf="nombreParticipants.invalid && (nombreParticipants.dirty || nombreParticipants.touched)" class="text-danger">
+            <small *ngIf="nombreParticipants.errors?.['required']">Le nombre de participants est requis.</small>
+            <small *ngIf="nombreParticipants.errors?.['min']">Il doit y avoir au moins 1 participant par équipe.</small>
           </div>
         </div>
+
+        <!-- Regles -->
+          <div class="mb-3">
+            <label for="regles" class="form-label">Règles Associées</label>
+            <mat-form-field class="w-100">
+              <mat-chip-grid #chipGrid>
+                <mat-chip-row *ngFor="let regle of typeDeSport.regles" [selectable]="true" [removable]="true"
+                  (removed)="removeRegle(regle)">
+                  {{ regle.description }}
+                  <mat-icon matChipRemove>cancel</mat-icon>
+                </mat-chip-row>
+                <input placeholder="Ajouter des règles..." [matAutocomplete]="auto" [formControl]="regleCtrl" matChipInput
+                  [matChipInputFor]="chipGrid" (matChipInputTokenEnd)="addRegle($event)" />
+              </mat-chip-grid>
+              <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selectRegle($event)">
+                <mat-option *ngFor="let regle of (filteredRegles | async)" [value]="regle">
+                  {{ regle.description }}
+                </mat-option>
+              </mat-autocomplete>
+            </mat-form-field>
+          </div>
+
+
 
         <!-- Bouton Ajouter / Modifier -->
         <button type="submit" class="btn btn-primary w-100" [disabled]="!typeSportForm.form.valid">

@@ -1,0 +1,79 @@
+<div class="container mt-4">
+  <h2 class="mb-3">Carte des Localisations</h2>
+
+  <div *ngIf="errorMessage" class="alert alert-danger">
+    {{ errorMessage }}
+  </div>
+
+  <google-map *ngIf="!errorMessage" [height]="'500px'" [width]="'100%'" [center]="center" [zoom]="zoom"
+    (mapClick)="onMapClick($event)">
+
+    <map-marker *ngFor="let marker of markers; let i = index" [position]="{ lat: marker.lat, lng: marker.lng }"
+      [title]="'Localisation'" (mapClick)="editLocalisation(i)">
+    </map-marker>
+  </google-map>
+
+  <!-- Modal Form -->
+  <div *ngIf="showForm" class="modal">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">{{ isEditMode ? 'Modifier' : 'Ajouter' }} une Localisation</h5>
+          <button type="button" class="btn-close" (click)="cancel()">×</button>
+        </div>
+        <div class="modal-body">
+          <form (ngSubmit)="addLocalisation()">
+            <div class="mb-3">
+              <label for="adresse" class="form-label">Adresse</label>
+              <input type="text" id="adresse" class="form-control" [(ngModel)]="newLocalisation.adresse" name="adresse"
+                required>
+            </div>
+            <div class="mb-3">
+              <label for="ville" class="form-label">Ville</label>
+              <input type="text" id="ville" class="form-control" [(ngModel)]="newLocalisation.ville" name="ville"
+                required>
+            </div>
+            <div class="mb-3">
+              <label for="pays" class="form-label">Pays</label>
+              <input type="text" id="pays" class="form-control" [(ngModel)]="newLocalisation.pays" name="pays" required>
+            </div>
+            <div class="mb-3">
+              <label for="latitude" class="form-label">Latitude</label>
+              <input type="text" id="latitude" class="form-control" [(ngModel)]="newLocalisation.latitude"
+                name="latitude" readonly>
+            </div>
+            <div class="mb-3">
+              <label for="longitude" class="form-label">Longitude</label>
+              <input type="text" id="longitude" class="form-control" [(ngModel)]="newLocalisation.longitude"
+                name="longitude" readonly>
+            </div>
+            <div class="d-flex justify-content-between">
+              <button type="button" class="btn btn-danger" *ngIf="isEditMode" (click)="openConfirmationModal(newLocalisation.id)">Supprimer</button>
+              <div>
+                <button type="submit" class="btn btn-primary">{{ isEditMode ? 'Modifier' : 'Ajouter' }}</button>
+                <button type="button" class="btn btn-secondary ms-2" (click)="cancel()">Annuler</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="showConfirmationModal" class="modal" tabindex="-1">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header bg-danger text-white">
+          <h5 class="modal-title">Confirmation de Suppression</h5>
+          <button type="button" class="btn-close" (click)="closeConfirmationModal()"></button>
+        </div>
+        <div class="modal-body">
+          <p>Voulez-vous vraiment supprimer cette localisation ?</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" (click)="closeConfirmationModal()">Annuler</button>
+          <button type="button" class="btn btn-danger" (click)="confirmDelete()">Confirmer</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

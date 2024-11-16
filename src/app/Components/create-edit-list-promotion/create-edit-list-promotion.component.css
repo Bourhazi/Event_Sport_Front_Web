@@ -1,0 +1,35 @@
+.container {
+  max-width: 1200px;
+}
+
+.card {
+  border: 1px solid #e3e6f0;
+  border-radius: 8px;
+  background-color: #fff;
+}
+
+.table {
+  border-collapse: separate;
+  border-spacing: 0 10px;
+}
+
+.table th {
+  background-color: #f8f9fc;
+  font-weight: bold;
+}
+
+.table-hover tbody tr:hover {
+  background-color: #f1f1f1;
+}
+
+.table thead th {
+  border-top: none;
+}
+
+.btn-warning {
+  color: #ffffff;
+}
+
+.pagination {
+  gap: 5px;
+}

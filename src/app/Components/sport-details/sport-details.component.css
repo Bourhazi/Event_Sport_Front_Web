@@ -1,0 +1,26 @@
+.container {
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.card {
+  border-radius: 10px;
+  background-color: #ffffff;
+  border: none;
+}
+
+.card h3 {
+  font-size: 1.8rem;
+  font-weight: 600;
+}
+
+.card h4 {
+  font-size: 1.5rem;
+}
+
+.list-unstyled li {
+  font-size: 1.1rem;
+  color: #dc3545;
+  /* Rouge pour les règles */
+  margin: 5px 0;
+}

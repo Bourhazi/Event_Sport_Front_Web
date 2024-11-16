@@ -1,0 +1,27 @@
+<div *ngIf="sport" class="container mt-5">
+  <h2 class="text-center text-primary mb-4">Détails du Type de Sport</h2>
+  <div class="card shadow p-4">
+    <div class="card-body text-center">
+      <h3 class="text-uppercase text-success">{{ sport.nom }}</h3>
+      <hr class="my-3">
+      <p class="mb-2">
+        <strong>Nombre d'équipes maximum :</strong> {{ sport.nombreEquipesMax }}
+      </p>
+      <p>
+        <strong>Nombre de participants par équipe :</strong> {{ sport.nombreParticipantsParEquipe }}
+      </p>
+      <hr class="my-3">
+      <h4 class="text-info">Règles associées :</h4>
+      <ul class="list-unstyled mt-3">
+        <li *ngFor="let regle of sport.regles" class="text-danger">
+          - {{ regle.description }}
+        </li>
+      </ul>
+    </div>
+    <div class="card-footer text-center">
+      <button class="btn btn-outline-primary mt-3" [routerLink]="['/sports-list']">
+        Retour à la liste
+      </button>
+    </div>
+  </div>
+</div>

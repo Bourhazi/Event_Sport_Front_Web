@@ -1,0 +1,14 @@
+.dropdown-menu {
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.form-check-input:checked+.form-check-label {
+  font-weight: bold;
+  color: #007bff;
+  /* Couleur pour les éléments sélectionnés */
+}
+
+.form-check-label {
+  cursor: pointer;
+}
