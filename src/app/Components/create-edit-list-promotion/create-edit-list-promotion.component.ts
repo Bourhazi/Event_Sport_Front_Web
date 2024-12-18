@@ -83,17 +83,28 @@ promotionForm!: FormGroup;
 
   onSubmit(): void {
     if (this.isEditMode && this.selectedPromotionId !== null) {
-      this.promotionService.updatePromotion(this.selectedPromotionId, this.promotionForm.value).subscribe(() => {
-        this.loadPromotions();
-        this.resetForm();
-      });
+      this.promotionService.updatePromotion(this.selectedPromotionId, this.promotionForm.value).subscribe(
+        (response) => {
+          this.loadPromotions();
+          this.resetForm();
+        },
+        (error) => {
+          console.error('Erreur lors de la mise à jour :', error.error); // Affiche l'erreur
+        }
+      );
     } else {
-      this.promotionService.createPromotion(this.promotionForm.value).subscribe(() => {
-        this.loadPromotions();
-        this.resetForm();
-      });
+      this.promotionService.createPromotion(this.promotionForm.value).subscribe(
+        (response) => {
+          this.loadPromotions();
+          this.resetForm();
+        },
+        (error) => {
+          console.error('Erreur lors de la création :', error.error); // Affiche l'erreur
+        }
+      );
     }
   }
+
 
   editPromotion(promotion: Promotion): void {
     this.isEditMode = true;

@@ -1,0 +1,67 @@
+<div class="row justify-content-center align-items-center vh-100">
+  <!-- Colonne gauche : Formulaire -->
+  <div class="col-lg-6 text-center text-lg-start">
+    <div class="card p-4 shadow-lg">
+      <h2 class="text-center mb-4" *ngIf="isEditMode">Modifier un Participant</h2>
+      <h2 class="text-center mb-4" *ngIf="!isEditMode">Ajouter un Participant</h2>
+      <form (ngSubmit)="onSubmit()" #participantForm="ngForm">
+
+        <!-- Nom -->
+        <div class="mb-3">
+          <label for="name" class="form-label">Nom</label>
+          <input type="text" id="name" class="form-control" [(ngModel)]="participant.name" name="name" required
+            minlength="2" pattern="[a-zA-ZÀ-ÿ\s]+" #name="ngModel" />
+          <div *ngIf="name.invalid && (name.dirty || name.touched)" class="text-danger">
+            <small *ngIf="name.errors?.['required']">Le nom est requis.</small>
+            <small *ngIf="name.errors?.['minlength']">Le nom doit comporter au moins 2 caractères.</small>
+            <small *ngIf="name.errors?.['pattern']">Le nom ne doit contenir que des lettres.</small>
+          </div>
+        </div>
+
+        <!-- Email -->
+        <div class="mb-3">
+          <label for="email" class="form-label">Email</label>
+          <input type="email" id="email" class="form-control" [(ngModel)]="participant.email" name="email" required
+            email #email="ngModel" />
+          <div *ngIf="email.invalid && (email.dirty || email.touched)" class="text-danger">
+            <small *ngIf="email.errors?.['required']">L'email est requis.</small>
+            <small *ngIf="email.errors?.['email']">L'email n'est pas valide.</small>
+          </div>
+        </div>
+
+        <!-- Téléphone -->
+        <div class="mb-3">
+          <label for="telephone" class="form-label">Téléphone</label>
+          <input type="number" id="telephone" class="form-control" [(ngModel)]="participant.telephone" name="telephone"
+            required min="100000000" max="999999999" #telephone="ngModel" />
+          <div *ngIf="telephone.invalid && (telephone.dirty || telephone.touched)" class="text-danger">
+            <small *ngIf="telephone.errors?.['required']">Le téléphone est requis.</small>
+            <small *ngIf="telephone.errors?.['min']">Le numéro est trop court.</small>
+            <small *ngIf="telephone.errors?.['max']">Le numéro est trop long.</small>
+          </div>
+        </div>
+
+        <!-- Mot de passe -->
+        <div class="mb-3">
+          <label for="password" class="form-label">Mot de passe</label>
+          <input type="password" id="password" class="form-control" [(ngModel)]="participant.password" name="password"
+            required minlength="6" #password="ngModel" />
+          <div *ngIf="password.invalid && (password.dirty || password.touched)" class="text-danger">
+            <small *ngIf="password.errors?.['required']">Le mot de passe est requis.</small>
+            <small *ngIf="password.errors?.['minlength']">Le mot de passe doit comporter au moins 6 caractères.</small>
+          </div>
+        </div>
+
+        <!-- Bouton Soumettre -->
+        <button type="submit" class="btn btn-primary w-100" [disabled]="!participantForm.form.valid">
+          {{ isEditMode ? 'Modifier' : 'Ajouter' }}
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Colonne droite : Image -->
+  <div class="col-lg-5 d-none d-lg-block">
+    <img src="../../../assets/player-image.png" alt="Participant" style="width: 100%; height: auto;" />
+  </div>
+</div>

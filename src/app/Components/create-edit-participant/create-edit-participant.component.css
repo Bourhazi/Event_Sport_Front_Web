@@ -1,0 +1,23 @@
+.card {
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.card h2 {
+  font-size: 1.5rem;
+  color: #0569d4;
+}
+
+.btn-primary {
+  background-color: #0569d4;
+  border-color: #034489;
+}
+
+.btn-primary:hover {
+  background-color: #034489;
+  border-color: #034489;
+}
+
+.text-danger small {
+  font-size: 0.875rem;
+}

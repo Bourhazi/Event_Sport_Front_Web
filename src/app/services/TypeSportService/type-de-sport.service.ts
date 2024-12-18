@@ -11,12 +11,12 @@ export interface TypeDeSport {
   regles: Regle[];
 }
 
-@Injectable({
+@Injectable({ 
   providedIn: 'root'
 })
 export class TypeDeSportService {
 
-  private apiUrl = 'http://localhost:8090/typesport';
+  private apiUrl = 'http://localhost:8080/typesport';
 
   constructor(private http: HttpClient) { }
 

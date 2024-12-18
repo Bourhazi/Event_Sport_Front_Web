@@ -13,7 +13,7 @@ export interface Promotion {
   providedIn: 'root',
 })
 export class PromotionService {
-  private apiUrl = 'http://localhost:8090/api/promotions';
+  private apiUrl = 'http://localhost:8080/api/promotions';
 
   constructor(private http: HttpClient) {}
 

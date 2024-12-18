@@ -1,0 +1,72 @@
+<div class="container mt-5">
+  <div *ngIf="successMessage" class="alert alert-success">{{ successMessage }}</div>
+  <div *ngIf="errorMessage" class="alert alert-danger">{{ errorMessage }}</div>
+
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h2 class="mb-0">Liste des Événements</h2>
+    <button class="btn btn-primary" (click)="createEvenement()">Ajouter un Événement</button>
+  </div>
+
+  <!-- Filtres -->
+  <div class="row mb-4">
+    <div class="col-md-4">
+      <input type="text" class="form-control" placeholder="Rechercher par nom" [(ngModel)]="searchTerm"
+        (input)="filterEvenements()" />
+    </div>
+    <div class="col-md-4">
+      <input type="number" class="form-control" placeholder="Prix max" [(ngModel)]="filterPrix"
+        (input)="filterEvenements()" />
+    </div>
+    <div class="col-md-4">
+      <input type="date" class="form-control" [(ngModel)]="filterDate" (change)="filterEvenements()" />
+    </div>
+  </div>
+
+  <!-- Tableau des événements -->
+  <table class="table table-hover">
+    <thead class="table-light">
+      <tr>
+        <th>#</th>
+        <th>Nom</th>
+        <th>Date</th>
+        <th>Prix</th>
+        <th>Type de Sport</th>
+        <th>Localisation</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let event of paginatedEvenements; let i = index">
+        <td>{{ (currentPage - 1) * itemsPerPage + i + 1 }}</td>
+        <td>{{ event.nom }}</td>
+        <td>{{ event.date }}</td>
+        <td>{{ event.prix }} €</td>
+        <td>{{ event.typeDeSportId }}</td>
+        <td>{{ event.localisationId }}</td>
+        <td>
+          <button class="btn btn-sm btn-outline-primary me-1" (click)="editEvenement(event.id!)">✏️</button>
+          <button class="btn btn-sm btn-outline-danger me-1" (click)="deleteEvenement(event.id!)">🗑️</button>
+        </td>
+      </tr>
+      <tr *ngIf="paginatedEvenements.length === 0">
+        <td colspan="7" class="text-center">Aucun événement trouvé</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- Pagination -->
+  <div class="d-flex justify-content-between align-items-center">
+    <div>Affichage de {{ (currentPage - 1) * itemsPerPage + 1 }} à {{ (currentPage * itemsPerPage) < totalItems ?
+        (currentPage * itemsPerPage) : totalItems }} sur {{ totalItems }} événements</div>
+        <nav>
+          <ul class="pagination">
+            <li class="page-item" [class.disabled]="currentPage === 1">
+              <button class="page-link" (click)="previousPage()">Précédent</button>
+            </li>
+            <li class="page-item" [class.disabled]="currentPage === totalPages">
+              <button class="page-link" (click)="nextPage()">Suivant</button>
+            </li>
+          </ul>
+        </nav>
+    </div>
+  </div>

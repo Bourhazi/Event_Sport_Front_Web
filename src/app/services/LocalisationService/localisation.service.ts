@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class LocalisationService {
-  private baseUrl = 'http://localhost:8090/api/localisations';
+  private baseUrl = 'http://localhost:8080/api/localisations';
 
   constructor(private http: HttpClient) {}
 

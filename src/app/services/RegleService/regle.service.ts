@@ -11,7 +11,7 @@ export interface Regle {
   providedIn: 'root',
 })
 export class RegleService {
-  private apiUrl = 'http://localhost:8090/api/regles';
+  private apiUrl = 'http://localhost:8080/api/regles';
 
   constructor(private http: HttpClient) {}
 

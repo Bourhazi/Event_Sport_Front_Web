@@ -15,7 +15,6 @@ import { RouterModule } from '@angular/router';
 export class SportDetailsComponent implements OnInit {
   sport: TypeDeSport | null = null;
 
-
   constructor(
     private route: ActivatedRoute,
     private typeDeSportService: TypeDeSportService

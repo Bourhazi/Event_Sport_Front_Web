@@ -1,0 +1,73 @@
+  <div class="row justify-content-center align-items-center vh-100">
+    <!-- Colonne gauche : Formulaire -->
+    <div class="col-lg-6 text-center text-lg-start">
+      <div class="card p-4 shadow-lg">
+        <h2 class="text-center mb-4" *ngIf="isEditMode">Modifier un Événement</h2>
+        <h2 class="text-center mb-4" *ngIf="!isEditMode">Créer un Événement</h2>
+
+        <form (ngSubmit)="onSubmit()" #evenementForm="ngForm">
+          <!-- Nom -->
+          <div class="mb-3">
+            <label for="nom" class="form-label">Nom de l'Événement</label>
+            <input type="text" id="nom" class="form-control" [(ngModel)]="evenement.nom" name="nom" required minlength="2"
+              #nom="ngModel" />
+            <div *ngIf="nom.invalid && (nom.dirty || nom.touched)" class="text-danger">
+              <small *ngIf="nom.errors?.['required']">Le nom est requis.</small>
+              <small *ngIf="nom.errors?.['minlength']">Le nom doit comporter au moins 2 caractères.</small>
+            </div>
+          </div>
+
+          <!-- Prix -->
+          <div class="mb-3">
+            <label for="prix" class="form-label">Prix (€)</label>
+            <input type="number" id="prix" class="form-control" [(ngModel)]="evenement.prix" name="prix" required min="0"
+              #prix="ngModel" />
+            <div *ngIf="prix.invalid && (prix.dirty || prix.touched)" class="text-danger">
+              <small *ngIf="prix.errors?.['required']">Le prix est requis.</small>
+              <small *ngIf="prix.errors?.['min']">Le prix doit être supérieur ou égal à 0.</small>
+            </div>
+          </div>
+
+          <!-- Date -->
+          <div class="mb-3">
+            <label for="date" class="form-label">Date</label>
+            <input type="date" id="date" class="form-control" [(ngModel)]="evenement.date" name="date" required
+              #date="ngModel" />
+            <div *ngIf="date.invalid && (date.dirty || date.touched)" class="text-danger">
+              <small *ngIf="date.errors?.['required']">La date est requise.</small>
+            </div>
+          </div>
+
+          <!-- Localisation -->
+          <div class="mb-3">
+            <label for="localisation" class="form-label">Localisation</label>
+            <select id="localisation" class="form-select" [(ngModel)]="evenement.localisationId" name="localisation" required>
+              <option *ngFor="let loc of localisations" [value]="loc.id">
+                {{ loc.adresse }} - {{ loc.ville }}
+              </option>
+            </select>
+          </div>
+
+          <!-- Type de Sport -->
+          <div class="mb-3">
+            <label for="typeDeSport" class="form-label">Type de Sport</label>
+            <select id="typeDeSport" class="form-select" [(ngModel)]="evenement.typeDeSportId" name="typeDeSport" required>
+              <option *ngFor="let type of typesDeSport" [value]="type.id">
+                {{ type.nom }}
+              </option>
+            </select>
+          </div>
+
+          <!-- Bouton Soumettre -->
+          <button type="submit" class="btn btn-primary w-100" [disabled]="!evenementForm.form.valid">
+            {{ isEditMode ? 'Modifier' : 'Créer' }}
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <!-- Colonne droite : Image -->
+    <div class="col-lg-5 d-none d-lg-block">
+      <img src="../../../assets/player-image.png" alt="Événement" style="width: 100%; height: auto;" />
+    </div>
+  </div>
