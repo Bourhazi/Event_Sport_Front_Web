@@ -1,0 +1,56 @@
+<div class="row justify-content-center align-items-center vh-100">
+  <div class="col-lg-6 text-center text-lg-start">
+    <div class="card p-4 shadow-lg">
+      <h2 class="text-center mb-4">Créer un Événement</h2>
+
+      <form (ngSubmit)="onSubmit()" #evenementForm="ngForm">
+        <!-- Nom de l'événement -->
+        <div class="mb-3">
+          <label for="nom" class="form-label">Nom de l'Événement</label>
+          <input type="text" id="nom" class="form-control" [(ngModel)]="evenement.nom" name="nom" required
+            minlength="2" />
+        </div>
+
+        <!-- Prix -->
+        <div class="mb-3">
+          <label for="prix" class="form-label">Prix (€)</label>
+          <input type="number" id="prix" class="form-control" [(ngModel)]="evenement.prix" name="prix" required
+            min="0" />
+        </div>
+
+        <!-- Date -->
+        <div class="mb-3">
+          <label for="date" class="form-label">Date</label>
+          <input type="date" id="date" class="form-control" [(ngModel)]="evenement.date" name="date" required />
+        </div>
+
+        <!-- Localisation -->
+        <div class="mb-3">
+          <label for="localisation" class="form-label">Localisation</label>
+          <select id="localisation" class="form-select" [(ngModel)]="evenement.localisationId" name="localisation"
+            required>
+            <option *ngFor="let loc of localisations" [value]="loc.id">
+              {{ loc.adresse }} - {{ loc.ville }}
+            </option>
+          </select>
+        </div>
+
+        <!-- Type de sport -->
+        <div class="mb-3">
+          <label for="typeDeSport" class="form-label">Type de Sport</label>
+          <select id="typeDeSport" class="form-select" [(ngModel)]="evenement.typeDeSportId" name="typeDeSport"
+            required>
+            <option *ngFor="let type of typesDeSport" [value]="type.id">
+              {{ type.nom }}
+            </option>
+          </select>
+        </div>
+
+        <!-- Bouton Soumettre -->
+        <button type="submit" class="btn btn-primary w-100" [disabled]="!evenementForm.form.valid">
+          Créer
+        </button>
+      </form>
+    </div>
+  </div>
+</div>

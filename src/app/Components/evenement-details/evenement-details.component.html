@@ -1,0 +1,37 @@
+<div class="container mt-5" *ngIf="evenement">
+  <h2>Détails de l'Événement : {{ evenement.nom }}</h2>
+
+  <p><strong>Date :</strong> {{ evenement.date | date }}</p>
+  <p><strong>Prix :</strong> {{ evenement.prix }} €</p>
+  <p><strong>Type de Sport :</strong> {{ evenement.typeDeSportId }}</p>
+  <p><strong>Localisation :</strong> {{ evenement.localisationId }}</p>
+
+  <h3>Équipes et Participants</h3>
+  <div *ngFor="let equipe of evenement.equipes" class="card mt-3">
+    <div class="card-header">
+      <h4>Équipe : Equipe {{ equipe.equipeId }}</h4>
+    </div>
+    <div class="card-body">
+      <ul>
+        <li *ngFor="let participant of equipe.participants">
+          {{ participant.name }} ({{ participant.email }})
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <h3>Résultats</h3>
+  <div *ngFor="let resultat of evenement.resultats" class="card mt-3">
+    <p><strong>Équipe :</strong> Equipe {{ resultat.equipeId }}</p>
+    <p><strong>Buts :</strong> {{ resultat.nombreButs }}</p>
+    <p><strong>Temps :</strong> {{ resultat.temps }}</p>
+  </div>
+
+  <button class="btn btn-secondary mt-4" (click)="retourListe()">
+    Retour à la liste
+  </button>
+</div>
+
+<div *ngIf="errorMessage" class="alert alert-danger mt-4">
+  {{ errorMessage }}
+</div>

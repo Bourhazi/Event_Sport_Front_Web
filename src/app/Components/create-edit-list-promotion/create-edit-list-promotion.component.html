@@ -11,13 +11,8 @@
             <input type="text" formControlName="code" id="code" class="form-control" placeholder="Code de promotion" />
           </div>
           <div class="mb-3">
-            <label for="discountPercentage" class="form-label">Pourcentage de Réduction</label>
-            <input type="number" formControlName="discountPercentage" id="discountPercentage" class="form-control"
-              placeholder="%" />
-          </div>
-          <div class="mb-3">
-            <label for="validUntil" class="form-label">Valable Jusqu'au</label>
-            <input type="date" formControlName="validUntil" id="validUntil" class="form-control" />
+            <label for="remise" class="form-label">Pourcentage de Réduction</label>
+            <input type="number" formControlName="remise" id="remise" class="form-control" placeholder="%" />
           </div>
           <div class="d-flex justify-content-between">
             <button type="submit" class="btn btn-primary w-100 me-1" [disabled]="promotionForm.invalid">{{ isEditMode ?
@@ -49,8 +44,7 @@
           <tr *ngFor="let promotion of paginatedPromotions; let i = index">
             <td>{{ (currentPage - 1) * itemsPerPage + i + 1 }}</td>
             <td>{{ promotion.code }}</td>
-            <td>{{ promotion.discountPercentage }}</td>
-            <td>{{ promotion.validUntil | date: 'dd/MM/yyyy' }}</td>
+            <td>{{ promotion.remise }}</td>
             <td class="text-center">
               <button class="btn btn-warning btn-sm me-2" (click)="editPromotion(promotion)">Modifier</button>
               <button class="btn btn-danger btn-sm" (click)="deletePromotion(promotion.id)">Supprimer</button>

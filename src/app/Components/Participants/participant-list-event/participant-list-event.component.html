@@ -44,10 +44,9 @@
         <td>{{ event.typeDeSportId }}</td>
         <td>{{ event.localisationId }}</td>
         <td>
-          <button class="btn btn-sm btn-outline-primary me-1" (click)="editEvenement(event.id!)">✏️</button>
-          <button class="btn btn-sm btn-outline-danger me-1" (click)="deleteEvenement(event.id!)">🗑️</button>
-          <button class="btn btn-sm btn-outline-primary" (click)="voirDetails(event.id!)" title="Voir">👁️</button>
-          <button class="btn btn-sm btn-outline-success" (click)="manageParticipants(event.id!)">Gérer les participants</button>
+          <button class="btn btn-sm btn-outline-primary me-1" (click)="voirDetails(event.id!)" title="Voir">👁️
+            Voir</button>
+          <button class="btn btn-sm btn-outline-success" (click)="inscrireEvenement(event.id!)">S'inscrire</button>
         </td>
       </tr>
       <tr *ngIf="paginatedEvenements.length === 0">
@@ -71,4 +70,4 @@
           </ul>
         </nav>
     </div>
-  </div>
+</div>

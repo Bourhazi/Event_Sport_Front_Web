@@ -3,8 +3,7 @@
   <div *ngIf="errorMessage" class="alert alert-danger">{{ errorMessage }}</div>
 
   <div class="d-flex justify-content-between align-items-center mb-4">
-    <h2 class="mb-0">Liste des Événements</h2>
-    <button class="btn btn-primary" (click)="createEvenement()">Ajouter un Événement</button>
+    <h2 class="mb-0">Événements Non Vérifiés</h2>
   </div>
 
   <!-- Filtres -->
@@ -44,14 +43,11 @@
         <td>{{ event.typeDeSportId }}</td>
         <td>{{ event.localisationId }}</td>
         <td>
-          <button class="btn btn-sm btn-outline-primary me-1" (click)="editEvenement(event.id!)">✏️</button>
-          <button class="btn btn-sm btn-outline-danger me-1" (click)="deleteEvenement(event.id!)">🗑️</button>
-          <button class="btn btn-sm btn-outline-primary" (click)="voirDetails(event.id!)" title="Voir">👁️</button>
-          <button class="btn btn-sm btn-outline-success" (click)="manageParticipants(event.id!)">Gérer les participants</button>
+          <button class="btn btn-sm btn-outline-success" (click)="verifierEvenement(event.id!)">✔️ Vérifier</button>
         </td>
       </tr>
       <tr *ngIf="paginatedEvenements.length === 0">
-        <td colspan="7" class="text-center">Aucun événement trouvé</td>
+        <td colspan="7" class="text-center">Aucun événement non vérifié trouvé</td>
       </tr>
     </tbody>
   </table>

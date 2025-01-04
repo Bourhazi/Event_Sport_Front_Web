@@ -111,4 +111,13 @@ evenements: Evenement[] = [];
     this.router.navigate(['/create-evenements']);
   }
 
+  manageParticipants(id: number): void {
+  this.router.navigate([`/evenements/${id}/participants`]);
+  }
+  
+  voirDetails(id: number): void {
+  this.router.navigate([`/evenements/${id}/details`]);
+  }
+
+
 }

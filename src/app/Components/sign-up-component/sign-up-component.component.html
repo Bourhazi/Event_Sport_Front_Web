@@ -1,0 +1,44 @@
+<div class="container mt-5">
+  <div class="card p-4 shadow-lg">
+    <h2 class="text-center mb-4">Créer un Compte</h2>
+
+    <form [formGroup]="signUpForm" (ngSubmit)="onSubmit()">
+      <!-- Nom -->
+      <div class="mb-3">
+        <label for="name" class="form-label">Nom</label>
+        <input type="text" id="name" class="form-control" formControlName="name">
+      </div>
+
+      <!-- Email -->
+      <div class="mb-3">
+        <label for="email" class="form-label">Email</label>
+        <input type="email" id="email" class="form-control" formControlName="email">
+      </div>
+
+      <!-- Téléphone -->
+      <div class="mb-3">
+        <label for="telephone" class="form-label">Téléphone</label>
+        <input type="text" id="telephone" class="form-control" formControlName="telephone">
+      </div>
+
+      <!-- Mot de Passe -->
+      <div class="mb-3">
+        <label for="password" class="form-label">Mot de passe</label>
+        <input type="password" id="password" class="form-control" formControlName="password">
+      </div>
+
+      <!-- Bouton Soumettre -->
+      <div class="text-center">
+        <button type="submit" class="btn btn-primary w-100" [disabled]="signUpForm.invalid">S'inscrire</button>
+      </div>
+    </form>
+
+    <!-- Message d'erreur -->
+    <div *ngIf="errorMessage" class="alert alert-danger mt-3">{{ errorMessage }}</div>
+    <div *ngIf="successMessage" class="alert alert-success mt-3">{{ successMessage }}</div>
+
+    <div class="text-center mt-3">
+      <a href="/login">Déjà un compte ? Se connecter</a>
+    </div>
+  </div>
+</div>

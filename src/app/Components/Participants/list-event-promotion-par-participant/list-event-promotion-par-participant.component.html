@@ -3,23 +3,7 @@
   <div *ngIf="errorMessage" class="alert alert-danger">{{ errorMessage }}</div>
 
   <div class="d-flex justify-content-between align-items-center mb-4">
-    <h2 class="mb-0">Liste des Événements</h2>
-    <button class="btn btn-primary" (click)="createEvenement()">Ajouter un Événement</button>
-  </div>
-
-  <!-- Filtres -->
-  <div class="row mb-4">
-    <div class="col-md-4">
-      <input type="text" class="form-control" placeholder="Rechercher par nom" [(ngModel)]="searchTerm"
-        (input)="filterEvenements()" />
-    </div>
-    <div class="col-md-4">
-      <input type="number" class="form-control" placeholder="Prix max" [(ngModel)]="filterPrix"
-        (input)="filterEvenements()" />
-    </div>
-    <div class="col-md-4">
-      <input type="date" class="form-control" [(ngModel)]="filterDate" (change)="filterEvenements()" />
-    </div>
+    <h2 class="mb-0">Événements Participant</h2>
   </div>
 
   <!-- Tableau des événements -->
@@ -44,10 +28,9 @@
         <td>{{ event.typeDeSportId }}</td>
         <td>{{ event.localisationId }}</td>
         <td>
-          <button class="btn btn-sm btn-outline-primary me-1" (click)="editEvenement(event.id!)">✏️</button>
-          <button class="btn btn-sm btn-outline-danger me-1" (click)="deleteEvenement(event.id!)">🗑️</button>
-          <button class="btn btn-sm btn-outline-primary" (click)="voirDetails(event.id!)" title="Voir">👁️</button>
-          <button class="btn btn-sm btn-outline-success" (click)="manageParticipants(event.id!)">Gérer les participants</button>
+          <button class="btn btn-sm btn-outline-success" (click)="ouvrirFormulairePromo(event.id!)">
+            Appliquer Promo
+          </button>
         </td>
       </tr>
       <tr *ngIf="paginatedEvenements.length === 0">
@@ -58,8 +41,10 @@
 
   <!-- Pagination -->
   <div class="d-flex justify-content-between align-items-center">
-    <div>Affichage de {{ (currentPage - 1) * itemsPerPage + 1 }} à {{ (currentPage * itemsPerPage) < totalItems ?
-        (currentPage * itemsPerPage) : totalItems }} sur {{ totalItems }} événements</div>
+    <div>
+      Affichage de {{ (currentPage - 1) * itemsPerPage + 1 }} à
+      {{ (currentPage * itemsPerPage) < totalItems ? (currentPage * itemsPerPage) : totalItems }} sur {{ totalItems }}
+        </div>
         <nav>
           <ul class="pagination">
             <li class="page-item" [class.disabled]="currentPage === 1">
@@ -70,5 +55,26 @@
             </li>
           </ul>
         </nav>
+    </div>
+  </div>
+
+  <!-- Formulaire pour appliquer le code promo -->
+  <div *ngIf="selectedEventId" class="modal-backdrop">
+    <div class="modal-content p-4">
+      <h4 class="mb-3">Appliquer une Promotion</h4>
+      <form (ngSubmit)="appliquerPromo()">
+        <div class="mb-3">
+          <label for="codePromo" class="form-label">Code Promo</label>
+          <input type="text" id="codePromo" [(ngModel)]="codePromo" name="codePromo" required class="form-control" />
+        </div>
+        <div class="d-flex justify-content-end gap-2">
+          <button type="submit" class="btn btn-primary">Appliquer</button>
+          <button type="button" class="btn btn-secondary" (click)="fermerFormulaire()">Annuler</button>
+        </div>
+      </form>
+
+      <div *ngIf="prixApresRemise !== null" class="mt-4">
+        <h5>Prix après remise : {{ prixApresRemise }} €</h5>
+      </div>
     </div>
   </div>

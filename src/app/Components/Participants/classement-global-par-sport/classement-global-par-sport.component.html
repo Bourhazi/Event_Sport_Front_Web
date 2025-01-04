@@ -1,0 +1,20 @@
+<div class="container mt-5">
+  <h1 class="mb-4">Classement Global</h1>
+
+  <div *ngIf="errorMessage" class="alert alert-danger">
+    {{ errorMessage }}
+  </div>
+
+  <div *ngIf="classements.length > 0; else noClassement">
+    <ul class="list-group">
+      <li *ngFor="let classement of classements; let i = index" class="list-group-item">
+        <strong>{{ i + 1 }}.</strong>
+        {{ classement.nom }} - {{ classement.score }}
+      </li>
+    </ul>
+  </div>
+
+  <ng-template #noClassement>
+    <p>Aucun classement disponible pour le moment.</p>
+  </ng-template>
+</div>

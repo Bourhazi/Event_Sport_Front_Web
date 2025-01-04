@@ -5,15 +5,14 @@ import { Observable } from 'rxjs';
 export interface Promotion {
   id: number;
   code: string;
-  discountPercentage: number;
-  validUntil: string;
+  remise: number;
 }
 
 @Injectable({
   providedIn: 'root',
 })
 export class PromotionService {
-  private apiUrl = 'http://localhost:8080/api/promotions';
+  private apiUrl = 'http://localhost:8080/promotions';
 
   constructor(private http: HttpClient) {}
 
@@ -36,4 +35,5 @@ export class PromotionService {
   deletePromotion(id: number): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/${id}`);
   }
+  
 }

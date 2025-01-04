@@ -1,0 +1,24 @@
+<div class="container">
+  <h2>Gestion des Participants pour l'Événement {{ evenementId }}</h2>
+
+  <div *ngIf="message" class="alert alert-success">{{ message }}</div>
+  <div *ngIf="errorMessage" class="alert alert-danger">{{ errorMessage }}</div>
+
+  <div class="mb-4">
+    <h3>Sélectionner des Participants</h3>
+    <form (submit)="inscrireParticipants(); $event.preventDefault()">
+      <div class="mb-3">
+        <label for="participantSelect" class="form-label">Participants</label>
+        <select id="participantSelect" [(ngModel)]="selectedParticipants" name="participants" class="form-select"
+          multiple>
+
+          <option *ngFor="let participant of allParticipants" [value]="participant.id"
+            [disabled]="isParticipantInscrit(participant.id)">
+            {{ participant.name }} ({{ participant.email }})
+          </option>
+        </select>
+      </div>
+      <button type="submit" class="btn btn-primary">Inscrire les Participants</button>
+    </form>
+  </div>
+</div>

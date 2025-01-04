@@ -12,7 +12,7 @@ import { CommonModule } from '@angular/common';
   styleUrl: './create-edit-list-promotion.component.css'
 })
 export class CreateEditListPromotionComponent implements OnInit {
-promotionForm!: FormGroup;
+  promotionForm!: FormGroup;
   promotions: Promotion[] = [];
   filteredPromotions: Promotion[] = [];
   paginatedPromotions: Promotion[] = [];
@@ -36,8 +36,7 @@ promotionForm!: FormGroup;
   initForm(): void {
     this.promotionForm = this.fb.group({
       code: ['', Validators.required],
-      discountPercentage: ['', [Validators.required, Validators.min(1)]],
-      validUntil: ['', Validators.required]
+      remise: ['', [Validators.required, Validators.min(1)]]
     });
   }
 
@@ -94,7 +93,9 @@ promotionForm!: FormGroup;
       );
     } else {
       this.promotionService.createPromotion(this.promotionForm.value).subscribe(
+
         (response) => {
+          console.log()
           this.loadPromotions();
           this.resetForm();
         },

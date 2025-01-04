@@ -57,12 +57,17 @@ export class CreateEditParticipantComponent implements OnInit {
       },
       (error) => {
         console.error('Erreur lors de l\'ajout du participant', error);
-        sessionStorage.setItem('message', 'Erreur lors de l\'ajout du participant');
+
+        // Extraire le message du backend
+        const errorMessage = error.error.message || 'Erreur lors de l\'ajout du participant';
+
+        sessionStorage.setItem('message', errorMessage);
         sessionStorage.setItem('success', 'false');
         this.router.navigate(['/participants-list']);
       }
     );
   }
+
 
   updateParticipant(): void {
     this.participantService.updateParticipant(this.participant.id, this.participant).subscribe(

@@ -29,6 +29,7 @@ participants: Participant[] = [];
 
   ngOnInit(): void {
     this.loadParticipants();
+    this.displayMessage();
   }
 
   loadParticipants(): void {
@@ -88,5 +89,18 @@ participants: Participant[] = [];
     }
   );
 }
+
+  displayMessage(): void {
+    const storedMessage = sessionStorage.getItem('message');
+    const storedSuccess = sessionStorage.getItem('success');
+
+    if (storedMessage) {
+      this.message = storedMessage;
+      this.isSuccess = storedSuccess === 'true';
+      // Effacer après l'affichage pour éviter une répétition
+      sessionStorage.removeItem('message');
+      sessionStorage.removeItem('success');
+    }
+  }
 
 }

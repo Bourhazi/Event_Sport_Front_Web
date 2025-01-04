@@ -1,0 +1,40 @@
+<div class="container mt-4">
+  <h2 class="mb-4">Ajouter Résultat</h2>
+
+  <div *ngIf="successMessage" class="alert alert-success">{{ successMessage }}</div>
+  <div *ngIf="errorMessage" class="alert alert-danger">{{ errorMessage }}</div>
+
+  <form [formGroup]="resultatForm" (ngSubmit)="ajouterResultat()">
+    <div class="mb-3">
+      <label class="form-label">Sélectionner un événement</label>
+      <select formControlName="evenementId" class="form-control" (change)="loadEquipes($event)">
+        <option value="">Sélectionner un événement</option>
+        <option *ngFor="let evenement of evenements" [value]="evenement.id">
+          {{ evenement.nom }}
+        </option>
+      </select>
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Sélectionner une équipe</label>
+      <select formControlName="equipeId" class="form-control">
+        <option value="">Sélectionner une équipe</option>
+        <option *ngFor="let equipe of equipes" [value]="equipe.id">
+          Equipe {{ equipe.id }}
+        </option>
+      </select>
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Nombre de buts</label>
+      <input type="number" formControlName="nombreButs" class="form-control">
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Temps (optionnel)</label>
+      <input type="number" formControlName="temps" class="form-control">
+    </div>
+
+    <button type="submit" class="btn btn-primary" [disabled]="!resultatForm.valid">Ajouter Résultat</button>
+  </form>
+</div>

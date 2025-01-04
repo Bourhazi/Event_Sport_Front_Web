@@ -10,13 +10,13 @@
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav ms-auto">
         <li class="nav-item">
-          <a class="nav-link" href="#">Home</a>
+          <a class="nav-link" [routerLink]="['/home']">Home</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Events</a>
+          <a class="nav-link" [routerLink]="['/evenements-list']">Events</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Scores</a>
+          <a class="nav-link" [routerLink]="['/home']">Scores</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" [routerLink]="['/regles']">Regles</a>
@@ -28,9 +28,17 @@
           <a class="nav-link" [routerLink]="['/sports-list']">Type de Sport</a>
         </li>
       </ul>
+
+      <!-- Boutons d'authentification -->
       <div class="d-flex ms-3 auth-buttons">
-        <a href="#" class="btn btn-outline-primary me-2">Login</a>
-        <a href="#" class="btn btn-primary">Sign up</a>
+        <ng-container *ngIf="!isAuthenticated(); else loggedInTemplate">
+          <a href="#" class="btn btn-outline-primary me-2" [routerLink]="['/login']">Login</a>
+          <a href="#" class="btn btn-primary" [routerLink]="['/sign-up']">Sign up</a>
+        </ng-container>
+
+        <ng-template #loggedInTemplate>
+          <button class="btn btn-outline-danger" (click)="logout()">Logout</button>
+        </ng-template>
       </div>
     </div>
   </div>
