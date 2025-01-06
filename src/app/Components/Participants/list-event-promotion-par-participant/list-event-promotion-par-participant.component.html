@@ -14,8 +14,6 @@
         <th>Nom</th>
         <th>Date</th>
         <th>Prix</th>
-        <th>Type de Sport</th>
-        <th>Localisation</th>
         <th>Actions</th>
       </tr>
     </thead>
@@ -23,13 +21,14 @@
       <tr *ngFor="let event of paginatedEvenements; let i = index">
         <td>{{ (currentPage - 1) * itemsPerPage + i + 1 }}</td>
         <td>{{ event.nom }}</td>
-        <td>{{ event.date }}</td>
+        <td>{{ event.date | date:'dd/MM/yyyy'}}</td>
         <td>{{ event.prix }} €</td>
-        <td>{{ event.typeDeSportId }}</td>
-        <td>{{ event.localisationId }}</td>
         <td>
           <button class="btn btn-sm btn-outline-success" (click)="ouvrirFormulairePromo(event.id!)">
             Appliquer Promo
+          </button>
+          <button class="btn btn-sm btn-outline-primary ms-3" (click)="voirDetails(event.id!)" title="Voir Détails">
+            👁️
           </button>
         </td>
       </tr>

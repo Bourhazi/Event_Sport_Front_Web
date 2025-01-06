@@ -3,6 +3,8 @@ import { Evenement, EvenementService } from '../../services/EvenementService/eve
 import { Router, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { TypeDeSportService } from '../../services/TypeSportService/type-de-sport.service';
+import { LocalisationService } from '../../services/LocalisationService/localisation.service';
 
 @Component({
   selector: 'app-evenement-list-component',
@@ -18,6 +20,10 @@ evenements: Evenement[] = [];
   successMessage: string | null = null;
   errorMessage: string | null = null;
 
+  typeDeSportNoms: Record<number, string> = {};
+  localisationNoms: Record<number, string> = {};
+
+
   searchTerm = '';
   filterPrix = '';
   filterDate = '';
@@ -28,7 +34,12 @@ evenements: Evenement[] = [];
   totalItems = 0;
   totalPages = 0;
 
-  constructor(private evenementService: EvenementService, private router: Router) {
+  constructor(
+    private evenementService: EvenementService,
+    private typeDeSportService: TypeDeSportService,
+    private localisationService: LocalisationService,
+    private router: Router
+  ) {
     const navigation = this.router.getCurrentNavigation();
     if (navigation?.extras.state) {
       this.successMessage = navigation.extras.state['message'];
@@ -38,6 +49,8 @@ evenements: Evenement[] = [];
 
   ngOnInit(): void {
     this.loadEvenements();
+    this.loadTypeDeSports();
+    this.loadLocalisations();
   }
 
   loadEvenements(): void {
@@ -55,6 +68,36 @@ evenements: Evenement[] = [];
       },
     });
   }
+  loadTypeDeSports(): void {
+    this.typeDeSportService.getTypesDeSport().subscribe({
+      next: (data) => {
+        this.typeDeSportNoms = data.reduce((acc: Record<number, string>, type) => {
+          acc[type.id] = type.nom;
+          return acc;
+        }, {} as Record<number, string>);
+
+      },
+      error: (err) => {
+        console.error('Erreur lors du chargement des types de sport', err);
+      }
+    });
+  }
+
+  loadLocalisations(): void {
+    this.localisationService.getAllLocalisations().subscribe({
+      next: (data) => {
+        console.log('Localisations reçues:', data);
+        this.localisationNoms = data.reduce((acc: Record<number, string>, localisation) => {
+          acc[localisation.id] = localisation.adresse;
+          return acc;
+        }, {} as Record<number, string>);
+      },
+      error: (err) => {
+        console.error('Erreur lors du chargement des localisations', err);
+      }
+    });
+  }
+
 
   filterEvenements() {
     const filtered = this.evenements.filter((event) => {
@@ -114,7 +157,7 @@ evenements: Evenement[] = [];
   manageParticipants(id: number): void {
   this.router.navigate([`/evenements/${id}/participants`]);
   }
-  
+
   voirDetails(id: number): void {
   this.router.navigate([`/evenements/${id}/details`]);
   }

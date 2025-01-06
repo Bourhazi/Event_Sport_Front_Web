@@ -29,7 +29,7 @@ export class ParticipantListEventComponent implements OnInit {
   totalItems = 0;
   totalPages = 0;
 
-  participantId: number | null = null;  // Récupération dynamique
+  participantId: number | null = null; 
 
   constructor(private evenementService: EvenementService, private router: Router) {}
 

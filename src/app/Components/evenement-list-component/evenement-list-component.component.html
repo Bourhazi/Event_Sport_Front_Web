@@ -39,10 +39,10 @@
       <tr *ngFor="let event of paginatedEvenements; let i = index">
         <td>{{ (currentPage - 1) * itemsPerPage + i + 1 }}</td>
         <td>{{ event.nom }}</td>
-        <td>{{ event.date }}</td>
+        <td>{{ event.date | date:'dd/MM/yyyy' }}</td>
         <td>{{ event.prix }} €</td>
-        <td>{{ event.typeDeSportId }}</td>
-        <td>{{ event.localisationId }}</td>
+        <td>{{ typeDeSportNoms[event.typeDeSportId] || 'N/A' }}</td>
+        <td>{{ localisationNoms[event.localisationId] || 'N/A' }}</td>
         <td>
           <button class="btn btn-sm btn-outline-primary me-1" (click)="editEvenement(event.id!)">✏️</button>
           <button class="btn btn-sm btn-outline-danger me-1" (click)="deleteEvenement(event.id!)">🗑️</button>

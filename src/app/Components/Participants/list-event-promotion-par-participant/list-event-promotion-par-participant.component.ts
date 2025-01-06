@@ -24,7 +24,7 @@ export class ListEventPromotionParParticipantComponent implements OnInit {
   totalItems = 0;
   totalPages = 0;
 
-  participantId: number = 3;  // ID fixe pour l'instant (test)
+  participantId: number | null = null;
   selectedEventId: number | null = null;
   codePromo: string = '';
   prixApresRemise: number | null = null;
@@ -35,37 +35,60 @@ export class ListEventPromotionParParticipantComponent implements OnInit {
   constructor(private evenementService: EvenementService, private router: Router) {}
 
   ngOnInit(): void {
+    this.recupererParticipantId();
     this.loadEvenementsParticipant();
   }
 
+  recupererParticipantId(): void {
+    const user = JSON.parse(localStorage.getItem('user') || '{}');
+
+    if (user && user.id) {
+      this.participantId = user.id;
+      console.log('ID du participant récupéré :', this.participantId);
+    } else {
+      console.error('Aucun utilisateur trouvé dans le localStorage');
+      this.router.navigate(['/login']);
+    }
+  }
+
   loadEvenementsParticipant(): void {
-    this.evenementService.getEvenementsParParticipant(this.participantId).subscribe({
-      next: (data) => {
-        this.evenements = data;
-        this.totalItems = this.evenements.length;
-        this.totalPages = Math.ceil(this.totalItems / this.itemsPerPage);
-        this.updatePagination();
-      },
-      error: (err) => {
-        this.errorMessage = 'Erreur lors du chargement des événements';
-        console.error(err);
-      }
-    });
+    if (this.participantId !== null) {
+      this.evenementService.getEvenementsParParticipant(this.participantId).subscribe({
+        next: (data) => {
+          console.log(data)
+          this.evenements = data;
+          this.totalItems = this.evenements.length;
+          this.totalPages = Math.ceil(this.totalItems / this.itemsPerPage);
+          this.updatePagination();
+        },
+        error: (err) => {
+          this.errorMessage = 'Erreur lors du chargement des événements';
+          console.error(err);
+        }
+      });
+    }
   }
 
   ouvrirFormulairePromo(evenementId: number): void {
     this.selectedEventId = evenementId;
-    this.codePromo = '';  // Réinitialisation du champ promo
+    this.codePromo = '';
     this.prixApresRemise = null;
   }
 
   appliquerPromo(): void {
-    if (this.selectedEventId && this.codePromo) {
+    if (this.selectedEventId && this.codePromo && this.participantId !== null) {
       this.evenementService.appliquerPromo(this.selectedEventId, this.participantId, this.codePromo).subscribe({
         next: (response) => {
           this.successMessage = 'Promotion appliquée avec succès';
-          this.prixApresRemise = response.prixApresRemise;  // Affichage du prix après remise
-          this.loadEvenementsParticipant();
+
+          // Mettre à jour directement le prix après remise dans la liste des événements
+          const event = this.evenements.find(e => e.id === this.selectedEventId);
+          if (event) {
+            event.prixApresRemise = response.prixApresRemise;
+          }
+
+          this.prixApresRemise = response.prixApresRemise;
+          this.loadEvenementsParticipant();  // Recharger la liste après l'application
         },
         error: (err) => {
           this.errorMessage = 'Erreur lors de l\'application de la promotion';
@@ -100,4 +123,15 @@ export class ListEventPromotionParParticipantComponent implements OnInit {
       this.updatePagination();
     }
   }
+
+  voirDetails(evenementId: number): void {
+    if (this.participantId) {
+      this.router.navigate([`/evenement-details/${evenementId}`], {
+        queryParams: { participantId: this.participantId }
+      });
+    } else {
+      console.error("Participant ID non disponible.");
+    }
+  }
+
 }

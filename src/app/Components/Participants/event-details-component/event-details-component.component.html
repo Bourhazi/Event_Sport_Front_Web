@@ -1,0 +1,17 @@
+<div class="container mt-5">
+  <h2>Détails de l'Événement</h2>
+
+  <div *ngIf="evenement">
+    <p><strong>Nom :</strong> {{ evenement.nom }}</p>
+    <p><strong>Date :</strong> {{ evenement.date | date:'dd/MM/yyyy'}}</p>
+    <p><strong>Prix Original :</strong> {{ evenement.prixInitial }} €</p>
+    <p><strong>Prix Après Remise :</strong> {{ prixApresRemise }} €</p>
+    <p><strong>Type de Sport :</strong> {{ evenement.TypeSport }}</p>
+    <p><strong>Localisation :</strong> {{ evenement.Localisation }}</p>
+  </div>
+  <div *ngIf="!evenement">
+    <p class="text-danger">Aucun détail disponible pour cet événement.</p>
+  </div>
+
+  <button class="btn btn-secondary mt-3" (click)="retour()">Retour</button>
+</div>

@@ -5,6 +5,15 @@
       <h3>Profil de {{ participant?.name }}</h3>
     </div>
 
+    <div *ngIf="successMessage" class="alert alert-success mt-3">
+      {{ successMessage }}
+    </div>
+
+    <!-- Message d'erreur (au-dessus du formulaire) -->
+    <div *ngIf="errorMessage" class="alert alert-danger mt-3">
+      {{ errorMessage }}
+    </div>
+
     <form [formGroup]="participantForm" (ngSubmit)="saveParticipant()">
       <div class="mb-3">
         <label for="name" class="form-label">Nom</label>
@@ -18,7 +27,10 @@
 
       <div class="mb-3">
         <label for="telephone" class="form-label">Téléphone</label>
-        <input type="text" id="telephone" class="form-control" formControlName="telephone" [readonly]="!isEditing">
+        <div class="input-group">
+          <span class="input-group-text">+212</span>
+          <input type="text" id="telephone" class="form-control" formControlName="telephone" [readonly]="!isEditing">
+        </div>
       </div>
 
       <div class="mb-3">
@@ -28,9 +40,12 @@
 
       <div class="text-center">
         <button *ngIf="!isEditing" type="button" class="btn btn-primary" (click)="toggleEdit()">Modifier</button>
-        <button *ngIf="isEditing" type="submit" class="btn btn-success">Enregistrer</button>
+        <button *ngIf="isEditing" type="submit" class="btn btn-success me-3" [disabled]="participantForm.invalid || isLoading">
+          {{ isLoading ? 'Enregistrement...' : 'Enregistrer' }}
+        </button>
         <button *ngIf="isEditing" type="button" class="btn btn-secondary" (click)="toggleEdit()">Annuler</button>
       </div>
     </form>
+
   </div>
 </div>

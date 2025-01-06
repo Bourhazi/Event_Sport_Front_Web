@@ -32,14 +32,17 @@
         <!-- Téléphone -->
         <div class="mb-3">
           <label for="telephone" class="form-label">Téléphone</label>
-          <input type="number" id="telephone" class="form-control" [(ngModel)]="participant.telephone" name="telephone"
-            required min="100000000" max="999999999" #telephone="ngModel" />
+          <div class="input-group">
+            <span class="input-group-text">+212</span>
+            <input type="text" id="telephone" class="form-control" [(ngModel)]="participant.telephone" name="telephone" required
+              pattern="^[0-9]{9}$" maxlength="9" #telephone="ngModel">
+          </div>
           <div *ngIf="telephone.invalid && (telephone.dirty || telephone.touched)" class="text-danger">
             <small *ngIf="telephone.errors?.['required']">Le téléphone est requis.</small>
-            <small *ngIf="telephone.errors?.['min']">Le numéro est trop court.</small>
-            <small *ngIf="telephone.errors?.['max']">Le numéro est trop long.</small>
+            <small *ngIf="telephone.errors?.['pattern']">Le téléphone doit contenir exactement 9 chiffres.</small>
           </div>
         </div>
+
 
         <!-- Mot de passe -->
         <div class="mb-3">

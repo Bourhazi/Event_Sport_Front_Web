@@ -41,6 +41,10 @@ export class CreateEditParticipantComponent implements OnInit {
   }
 
   onSubmit(): void {
+    if (this.participant.telephone) {
+    // Nettoyage du numéro en cas de mauvais format
+      this.participant.telephone = Number(this.participant.telephone.toString().slice(0, 9));
+    }
     if (this.isEditMode) {
       this.updateParticipant();
     } else {

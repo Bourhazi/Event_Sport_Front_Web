@@ -3,8 +3,9 @@
 
   <p><strong>Date :</strong> {{ evenement.date | date }}</p>
   <p><strong>Prix :</strong> {{ evenement.prix }} €</p>
-  <p><strong>Type de Sport :</strong> {{ evenement.typeDeSportId }}</p>
-  <p><strong>Localisation :</strong> {{ evenement.localisationId }}</p>
+  <p><strong>Type de Sport :</strong> {{ evenement.typeDeSport?.nom }}</p>
+  <p><strong>Adresse :</strong> {{ evenement.localisation?.adresse }}</p>
+
 
   <h3>Équipes et Participants</h3>
   <div *ngFor="let equipe of evenement.equipes" class="card mt-3">

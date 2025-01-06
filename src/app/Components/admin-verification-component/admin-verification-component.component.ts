@@ -3,6 +3,8 @@ import { Router } from '@angular/router';
 import { Evenement, EvenementService } from '../../services/EvenementService/evenement.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { TypeDeSportService } from '../../services/TypeSportService/type-de-sport.service';
+import { LocalisationService } from '../../services/LocalisationService/localisation.service';
 
 @Component({
   selector: 'app-admin-verification-component',
@@ -30,16 +32,18 @@ export class AdminVerificationComponentComponent implements OnInit {
   totalItems: number = 0;
   totalPages: number = 0;
 
-  participantId: number = 3;  // ID fixe pour le moment (test)
 
-  constructor(private evenementService: EvenementService, private router: Router) {}
+  constructor(private evenementService: EvenementService,
+    private typeDeSportService: TypeDeSportService,
+    private localisationService: LocalisationService,
+    private router: Router) {}
 
   ngOnInit(): void {
     this.loadEvenementsNonVerifies();
   }
 
   loadEvenementsNonVerifies(): void {
-    this.evenementService.getEvenementsNonVerifie(this.participantId).subscribe({
+    this.evenementService.getEvenementsNonVerifie().subscribe({
       next: (data) => {
         this.evenements = data;
         this.filteredEvenements = [...this.evenements];

@@ -1,44 +1,81 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-white">
   <div class="container-fluid">
-    <a class="navbar-brand" href="#">
+    <a class="navbar-brand" [routerLink]="['/home']">
       <img src="../../assets/logo.png" alt="Logo" class="img-fluid" />
     </a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
       aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
+
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav ms-auto">
         <li class="nav-item">
           <a class="nav-link" [routerLink]="['/home']">Home</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" [routerLink]="['/evenements-list']">Events</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" [routerLink]="['/home']">Scores</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" [routerLink]="['/regles']">Regles</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" [routerLink]="['/localisations']">Localisations</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" [routerLink]="['/sports-list']">Type de Sport</a>
-        </li>
+
+        <!-- Liens spécifiques pour les organisateurs -->
+        <ng-container *ngIf="isOrganisateur()">
+          <li class="nav-item">
+            <a class="nav-link" [routerLink]="['/evenements-list']">Evenements</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" [routerLink]="['/regles']">Regles</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" [routerLink]="['/localisations']">Localisations</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" [routerLink]="['/sports-list']">Type Sport</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" [routerLink]="['/promotions']">Promotions</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" [routerLink]="['/participants-list']">Participants </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" [routerLink]="['/resultats/ajouter']">Ajouter Resultat</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" [routerLink]="['/verification-evenements']">EvenementVerification</a>
+          </li>
+        </ng-container>
+
+        <!-- Liens spécifiques pour les participants -->
+        <ng-container *ngIf="isParticipant()">
+          <li class="nav-item">
+            <a class="nav-link" [routerLink]="['/participant-evenements']">List Evenements</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" [routerLink]="['/participant-evenements-promotions']">Appliquer Promo</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" [routerLink]="['/classement-global']">Classement Global</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" [routerLink]="['/participants/' + authService.getUser().id]">Participant Profile</a>
+          </li>
+        </ng-container>
       </ul>
 
-      <!-- Boutons d'authentification -->
       <div class="d-flex ms-3 auth-buttons">
         <ng-container *ngIf="!isAuthenticated(); else loggedInTemplate">
-          <a href="#" class="btn btn-outline-primary me-2" [routerLink]="['/login']">Login</a>
-          <a href="#" class="btn btn-primary" [routerLink]="['/sign-up']">Sign up</a>
+          <a class="btn btn-outline-primary me-2" [routerLink]="['/login']">Login</a>
+          <a class="btn btn-primary" [routerLink]="['/sign-up']">Sign up</a>
         </ng-container>
 
         <ng-template #loggedInTemplate>
-          <button class="btn btn-outline-danger" (click)="logout()">Logout</button>
+          <div class="auth-buttons">
+            <div class="auth-select-container">
+              <select class="auth-select" (change)="onSelectChange($event)">
+                <option selected disabled>{{ userName || 'Utilisateur' }}</option>
+                <option value="logout">Logout</option>
+              </select>
+            </div>
+          </div>
         </ng-template>
+
       </div>
     </div>
   </div>

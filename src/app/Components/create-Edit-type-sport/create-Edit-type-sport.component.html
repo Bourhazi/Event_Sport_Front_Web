@@ -42,26 +42,22 @@
         </div>
 
         <!-- Regles -->
-          <div class="mb-3">
-            <label for="regles" class="form-label">Règles Associées</label>
-            <mat-form-field class="w-100">
-              <mat-chip-grid #chipGrid>
-                <mat-chip-row *ngFor="let regle of typeDeSport.regles" [selectable]="true" [removable]="true"
-                  (removed)="removeRegle(regle)">
-                  {{ regle.description }}
-                  <mat-icon matChipRemove>cancel</mat-icon>
-                </mat-chip-row>
-                <input placeholder="Ajouter des règles..." [matAutocomplete]="auto" [formControl]="regleCtrl" matChipInput
-                  [matChipInputFor]="chipGrid" (matChipInputTokenEnd)="addRegle($event)" />
-              </mat-chip-grid>
-              <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selectRegle($event)">
-                <mat-option *ngFor="let regle of (filteredRegles | async)" [value]="regle">
-                  {{ regle.description }}
-                </mat-option>
-              </mat-autocomplete>
-            </mat-form-field>
-          </div>
+          <mat-form-field class="w-100">
+            <mat-chip-grid #chipGrid>
+              <mat-chip *ngFor="let regle of typeDeSport.regles" [removable]="true" (removed)="removeRegle(regle)">
+                {{ regle.description }}
+                <mat-icon matChipRemove>cancel</mat-icon>
+              </mat-chip>
+              <input placeholder="Ajouter des règles..." [matAutocomplete]="auto" [formControl]="regleCtrl" matChipInput
+                [matChipInputFor]="chipGrid" />
+            </mat-chip-grid>
 
+            <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selectRegle($event)" [displayWith]="displayFn">
+              <mat-option *ngFor="let regle of (filteredRegles | async)" [value]="regle">
+                {{ regle.description }}
+              </mat-option>
+            </mat-autocomplete>
+          </mat-form-field>
 
 
         <!-- Bouton Ajouter / Modifier -->

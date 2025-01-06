@@ -58,3 +58,33 @@ nav {
   width: auto;
   object-fit: contain;
 }
+
+/* Select styling */
+.auth-select {
+  font-size: 1rem;
+  padding: 0.5rem 1.5rem 0.5rem 1rem;
+  border-radius: 1.5rem;
+  border: 1px solid #0569d4;
+  cursor: pointer;
+  color: #333;
+  background-color: white;
+  appearance: none;
+  position: relative;
+}
+
+.auth-select-container {
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.auth-select-container::after {
+  content: '▼';
+  position: absolute;
+  right: 10px;
+  pointer-events: none;
+  font-size: 0.9rem;
+  color: #0569d4;
+  margin-left: 8px;
+  /* Ajoute de l'espace entre le texte et la flèche */
+}

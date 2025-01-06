@@ -10,6 +10,9 @@ export interface Evenement {
   prix: number;
   typeDeSportId: number;
   localisationId: number;
+  prixApresRemise?: number;
+  typeSport?: string
+  localisat?:string
 }
 @Injectable({
   providedIn: 'root'
@@ -90,9 +93,8 @@ export class EvenementService {
     return this.http.get<any[]>(`${this.apiUrl}/participes/${participantId}`);
   }
 
-   getEvenementsNonVerifie(participantId: number): Observable<any[]> {
+   getEvenementsNonVerifie(): Observable<any[]> {
     return this.http.get<any[]>(`${this.apiUrl}/listeSimpleNonVerified`, {
-      params: { participantId }
     });
   }
 
@@ -106,5 +108,10 @@ export class EvenementService {
   verifierEvenement(evenementId: number): Observable<any> {
     return this.http.put(`${this.apiUrl}/${evenementId}/verify`, {});
   }
+
+  obtenirEvenementsParticipesAvecPrixReduit(participantId: number): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiUrl}/participes-prix-reduits/${participantId}`);
+  }
+
 
 }

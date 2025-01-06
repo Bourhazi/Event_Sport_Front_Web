@@ -27,15 +27,16 @@ import { RoleGuard } from './services/Authentification/role.guard';
 import { ParticipantGuard } from './services/Authentification/ParticipantGuard';
 import { SignUpComponentComponent } from './Components/sign-up-component/sign-up-component.component';
 import { ForgotPasswordComponent } from './Components/forgot-password/forgot-password.component';
+import { EventDetailsComponentComponent } from './Components/Participants/event-details-component/event-details-component.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: 'login', component: LoginComponentComponent },
   { path: 'sign-up', component: SignUpComponentComponent },
   { path: 'forgot-password', component: ForgotPasswordComponent },
+  { path: 'home', component: MainContentComponent },
 
   // Routes accessibles uniquement aux administrateurs
-  { path: 'home', component: MainContentComponent, canActivate: [AuthGuard, RoleGuard] },
   { path: 'create-type-sport', component: CreateTypeSportComponent, canActivate: [AuthGuard, RoleGuard] },
   { path: 'create-type-sport/:id', component: CreateTypeSportComponent, canActivate: [AuthGuard, RoleGuard] },
   { path: 'sports-list', component: ListTypeSportComponent, canActivate: [AuthGuard, RoleGuard] },
@@ -58,9 +59,9 @@ export const routes: Routes = [
   { path: 'participant-evenements', component: ParticipantListEventComponent, canActivate: [AuthGuard, ParticipantGuard] },
   { path: 'create-participant-evenement', component: CreateEvenetParParticipantComponent, canActivate: [AuthGuard, ParticipantGuard] },
   { path: 'participant-evenements-promotions', component: ListEventPromotionParParticipantComponent, canActivate: [AuthGuard, ParticipantGuard] },
-    { path: 'classement-global', component: ClassementGlobalParSportComponent, canActivate: [AuthGuard, ParticipantGuard] },
+  { path: 'classement-global', component: ClassementGlobalParSportComponent, canActivate: [AuthGuard, ParticipantGuard] },
   { path: 'participants/:id', component: ParticipantProfileComponent, canActivate: [AuthGuard, ParticipantGuard] },
-
+  { path: 'evenement-details/:id', component: EventDetailsComponentComponent },
   { path: '**', redirectTo: 'login' },
 ];
 

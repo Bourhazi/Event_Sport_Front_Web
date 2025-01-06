@@ -5,20 +5,30 @@
   <div *ngIf="errorMessage" class="alert alert-danger">{{ errorMessage }}</div>
 
   <div class="mb-4">
-    <h3>Sélectionner des Participants</h3>
-    <form (submit)="inscrireParticipants(); $event.preventDefault()">
-      <div class="mb-3">
-        <label for="participantSelect" class="form-label">Participants</label>
-        <select id="participantSelect" [(ngModel)]="selectedParticipants" name="participants" class="form-select"
-          multiple>
+    <h3>Sélectionner un Participant</h3>
+    <form (submit)="inscrireParticipant(); $event.preventDefault()">
+      <label for="participantSelect">Participants</label>
+      <select id="participantSelect" class="form-control" [(ngModel)]="selectedParticipantId" name="participant">
+        <option *ngFor="let participant of allParticipants" [value]="participant.id"
+          [disabled]="isParticipantAlreadyInscrit(participant.id)">
+          {{ participant.name }} ({{ participant.email }})
+        </option>
 
-          <option *ngFor="let participant of allParticipants" [value]="participant.id"
-            [disabled]="isParticipantInscrit(participant.id)">
-            {{ participant.name }} ({{ participant.email }})
-          </option>
-        </select>
-      </div>
-      <button type="submit" class="btn btn-primary">Inscrire les Participants</button>
+      </select>
+
+      <button type="submit" class="btn btn-primary mt-3" [disabled]="!selectedParticipantId">
+        Inscrire le Participant
+      </button>
     </form>
+  </div>
+
+  <div class="mt-5">
+    <h3>Participants Inscrits</h3>
+    <ul *ngIf="participantsInscrits.length > 0">
+      <li *ngFor="let participant of participantsInscrits">
+        {{ participant.name }} ({{ participant.email }})
+      </li>
+    </ul>
+    <p *ngIf="participantsInscrits.length === 0">Aucun participant inscrit.</p>
   </div>
 </div>
